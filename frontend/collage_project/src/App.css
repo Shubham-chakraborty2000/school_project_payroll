@@ -1,0 +1,56 @@
+
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+.sidebar {
+  width: 250px;
+  background-color: #004c70;
+  color: #fff;
+  flex-shrink: 0;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+
+.main-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  height: 60px;
+  background-color: #0e937c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 15;
+}
+
+
+.page-content {
+  margin-top: 80px;
+}
+
+
+
+

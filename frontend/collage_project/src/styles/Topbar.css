@@ -1,0 +1,56 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a9d8f;
+  color: white;
+  padding: 12px 25px;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.logout-button {
+  background-color: white;
+  color: #2a9d8f;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #e0f7f4;
+  transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .right-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

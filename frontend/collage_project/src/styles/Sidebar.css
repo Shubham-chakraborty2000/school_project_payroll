@@ -1,0 +1,225 @@
+/* .sidebar {
+  width: 260px;
+  background: #0f4c75;
+  color: white;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sidebar-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: white;
+  color: #0f4c75;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.org {
+  font-weight: 700;
+  font-size: 16px;
+}
+.org-sub {
+  font-size: 12px;
+  opacity: 0.9;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+.sidebar-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.sidebar-item.active {
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+}
+.sidebar-footer {
+  margin-top: auto;
+  font-size: 12px;
+  opacity: 0.9;
+} */
+
+
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(180deg, #004b73 0%, #0077aa 100%);
+  color: #ffffff;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 25px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.logo {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: white;
+  padding: 4px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 20px 0;
+  flex: 1;
+}
+
+.menu > li {
+  margin-bottom: 8px;
+}
+
+.menu-button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #eaf6ff;
+  font-size: 15px;
+  text-align: left;
+  padding: 12px 22px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s ease;
+  border-left: 4px solid transparent;
+}
+
+.menu-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #ffffff;
+  color: #ffffff;
+  box-shadow: inset 2px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+.arrow {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.submenu {
+  list-style: none;
+  padding-left: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.submenu li {
+  margin: 4px 0;
+}
+
+.submenu li a {
+  display: block;
+  padding: 8px 20px;
+  color: #dcefff;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.submenu li a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.active-link {
+  background: rgba(255, 255, 255, 0.25);
+  border-left: 4px solid #ffffff;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+  }
+  .title {
+    font-size: 15px;
+  }
+}
+
+/* Dashboard Button Styling */
+.dashboard-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #00aaff, #0077aa);
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px 0;
+  border-radius: 8px;
+  margin: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-link:hover {
+  background: linear-gradient(90deg, #0099dd, #005f8c);
+  transform: scale(1.03);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-link.active-link {
+  background: linear-gradient(90deg, #006699, #004d73);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.dashboard-icon {
+  font-size: 18px;
+  color: #ffffff;
+}

@@ -1,0 +1,258 @@
+.bonus-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 25px 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.bonus-container h2 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.bonus-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bonus-toolbar input {
+  flex: 1;
+  min-width: 250px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.bonus-toolbar input:focus {
+  border-color: #2a9d8f;
+  outline: none;
+}
+
+.add-btn {
+  padding: 10px 18px;
+  background-color: #2a9d8f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-btn:hover {
+  background-color: #21867a;
+  transform: scale(1.03);
+}
+
+.bonus-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.bonus-table th,
+.bonus-table td {
+  border: 1px solid #e2e2e2;
+  text-align: center;
+  padding: 10px;
+  color: #444;
+}
+
+.bonus-table th {
+  background-color: #f3f3f3;
+  font-weight: 600;
+  color: #333;
+}
+
+.bonus-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #2a9d8f;
+  color: white;
+  margin-right: 6px;
+}
+
+.edit-btn:hover {
+  background-color: #21867a;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #2a9d8f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #21867a;
+}
+
+.pagination button.active {
+  background-color: #21867a;
+  font-weight: 600;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #ffffff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 450px;
+  max-width: 95%;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal h3 {
+  text-align: center;
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal input,
+.modal textarea {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+  border-color: #2a9d8f;
+  outline: none;
+}
+
+.modal textarea {
+  resize: none;
+  height: 70px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.modal-actions button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-actions button:first-child {
+  background-color: #2a9d8f;
+  color: white;
+}
+
+.modal-actions button:first-child:hover {
+  background-color: #21867a;
+  transform: scale(1.03);
+}
+
+.cancel-btn {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.cancel-btn:hover {
+  background-color: #e6e6e6;
+  transform: scale(1.03);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .bonus-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal {
+    width: 90%;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+}
