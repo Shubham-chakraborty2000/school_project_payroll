@@ -18,9 +18,15 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
+        <div className="logo-container">
+          <img src="/company_logo.png" alt="PMS Logo" className="logo" />
+          <h2 className="system-title">PAYROLL MANAGEMENT SYSTEM</h2>
+        </div>
+      </div>
+      {/* <div className="sidebar-header">
         <img src="/pms_logo.png" alt="PMS Logo" className="logo" />
         <h2 className="title">Payroll Management System</h2>
-      </div>
+      </div> */}
 
       <ul className="menu">
 

@@ -289,7 +289,6 @@ export default function AttendanceSummary() {
                 </tbody>
               </table>
             </div>
-
             <div className="pagination-row">
               <div className="pagination-left">
                 Showing {filtered.length === 0 ? 0 : (page - 1) * itemsPerPage + 1}{" "}
