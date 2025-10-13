@@ -12,7 +12,8 @@ CORS(app)
 def get_employee_information():
     try:
         con = get_connection()
-        cursor = con.cursor(dictionary=True)  
+        cursor = con.cursor(dictionary=True)
+
         query = """
             SELECT 
                 id,
@@ -22,13 +23,23 @@ def get_employee_information():
                 lastname,
                 department_id,
                 position_id,
-                salary
+                salary,
+                joining_date,
+                pan_no,
+                aadhar_no,
+                mobile_no,
+                email,
+                pf_account_no,
+                esi_no,
+                fathers_name,
+                resident_ph_no,
+                spouse_name,
+                spouse_ph_no
             FROM EmployeeInformation
         """
         cursor.execute(query)
         results = cursor.fetchall()
 
-        
         response = {"employees": results}
 
     except Exception as e:
@@ -37,43 +48,70 @@ def get_employee_information():
     finally:
         cursor.close()
         con.close()
-        return jsonify(response)
-    
+
+    return jsonify(response)
 
 
-@app.route('/employeeinformation',methods=['POST'])
+
+
+
+@app.route('/employeeinformation', methods=['POST'])
 def add_employee_information():
+    con = None
+    cursor = None
     try:
-        con=request.get_json()
         data = request.get_json()
+
         employee_no = data['employee_no']
         firstname = data['firstname']
-        middlename = data.get('middlename')  
+        middlename = data.get('middlename')
         lastname = data['lastname']
         department_id = data['department_id']
         position_id = data['position_id']
         salary = data['salary']
-        con=get_connection()
-        cursor=con.cursor()
-        query="""
-        INSERT INTO EmployeeInformation 
-            (employee_no, firstname, middlename, lastname, department_id, position_id, salary)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-            """
-        values=(employee_no, firstname, middlename, lastname, department_id, position_id, salary)
-        cursor.execute(query,values)
-        con.commit()
-        emp_id=cursor.lastrowid
-        response={"message":f"Employee {firstname} {lastname} added successfully with id {emp_id} "}
-    except Exception as e:
-            response={"error":str(e)}
-    finally:
-                cursor.close()
-                con.close()
-                return jsonify(response)
-    
+        joining_date = data.get('joining_date')
+        pan_no = data.get('pan_no')
+        aadhar_no = data.get('aadhar_no')
+        mobile_no = data.get('mobile_no')
+        email = data.get('email')
+        pf_account_no = data.get('pf_account_no')
+        esi_no = data.get('esi_no')
+        fathers_name = data.get('fathers_name')
+        resident_ph_no = data.get('resident_ph_no')
+        spouse_name = data.get('spouse_name')
+        spouse_ph_no = data.get('spouse_ph_no')
 
-      
+        con = get_connection()
+        cursor = con.cursor()
+        query = """
+        INSERT INTO EmployeeInformation 
+            (employee_no, firstname, middlename, lastname, department_id, position_id, salary,
+             joining_date, pan_no, aadhar_no, mobile_no, email, pf_account_no, esi_no,
+             fathers_name, resident_ph_no, spouse_name, spouse_ph_no)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        values = (employee_no, firstname, middlename, lastname, department_id, position_id, salary,
+                  joining_date, pan_no, aadhar_no, mobile_no, email, pf_account_no, esi_no,
+                  fathers_name, resident_ph_no, spouse_name, spouse_ph_no)
+
+        cursor.execute(query, values)
+        con.commit()
+        emp_id = cursor.lastrowid
+
+        response = {"message": f"Employee {firstname} {lastname} added successfully with id {emp_id}"}
+
+    except Exception as e:
+        response = {"error": str(e)}
+    finally:
+        if cursor:
+            cursor.close()
+        if con:
+            con.close()
+    return jsonify(response)
+
+
+
+
 
 
 @app.route('/attendance_status', methods=['GET'])

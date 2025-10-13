@@ -122,6 +122,17 @@ function AddEmployee() {
     department_id: "",
     position_id: "",
     salary: "",
+    joining_date: "",
+    pan_no: "",
+    aadhar_no: "",
+    mobile_no: "",
+    email: "",
+    pf_account_no: "",
+    esi_no: "",
+    fathers_name: "",
+    resident_ph_no: "",
+    spouse_name: "",
+    spouse_ph_no: ""
   });
 
   const [loading, setLoading] = useState(false);
@@ -160,6 +171,17 @@ function AddEmployee() {
         department_id: "",
         position_id: "",
         salary: "",
+        joining_date: "",
+        pan_no: "",
+        aadhar_no: "",
+        mobile_no: "",
+        email: "",
+        pf_account_no: "",
+        esi_no: "",
+        fathers_name: "",
+        resident_ph_no: "",
+        spouse_name: "",
+        spouse_ph_no: ""
       });
     } catch (err) {
       console.error("Error adding employee:", err);
@@ -174,115 +196,232 @@ function AddEmployee() {
       <h2>Add New Employee</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="form-row">
-          <label>Employee No:</label>
-          <input
-            type="text"
-            name="employee_no"
-            value={formData.employee_no}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          />
+        {/* ===== Basic Info Section ===== */}
+        <h3 className="section-title">Personal Information</h3>
+        <div className="form-grid">
+          <div className="form-row">
+            <label>Employee No:</label>
+            <input
+              type="text"
+              name="employee_no"
+              value={formData.employee_no}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-row">
+            <label>First Name:</label>
+            <input
+              type="text"
+              name="firstname"
+              value={formData.firstname}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Middle Name:</label>
+            <input
+              type="text"
+              name="middlename"
+              value={formData.middlename}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Last Name:</label>
+            <input
+              type="text"
+              name="lastname"
+              value={formData.lastname}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Joining Date:</label>
+            <input
+              type="date"
+              name="joining_date"
+              value={formData.joining_date}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Department:</label>
+            <select
+              name="department_id"
+              value={formData.department_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Department</option>
+              {departments.map((dep) => (
+                <option key={dep.id} value={dep.id}>
+                  {dep.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-row">
+            <label>Position:</label>
+            <select
+              name="position_id"
+              value={formData.position_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Position</option>
+              {positions.map((pos) => (
+                <option key={pos.id} value={pos.id}>
+                  {pos.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-row">
+            <label>Salary:</label>
+            <input
+              type="number"
+              name="salary"
+              value={formData.salary}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
 
-        <div className="form-row">
-          <label>First Name:</label>
-          <input
-            type="text"
-            name="firstname"
-            value={formData.firstname}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          />
+       
+        <h3 className="section-title">Identification Details</h3>
+        <div className="form-grid">
+          <div className="form-row">
+            <label>PAN No:</label>
+            <input
+              type="text"
+              name="pan_no"
+              value={formData.pan_no}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Aadhar No:</label>
+            <input
+              type="text"
+              name="aadhar_no"
+              value={formData.aadhar_no}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Mobile No:</label>
+            <input
+              type="text"
+              name="mobile_no"
+              value={formData.mobile_no}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
 
-        <div className="form-row">
-          <label>Middle Name:</label>
-          <input
-            type="text"
-            name="middlename"
-            value={formData.middlename}
-            onChange={handleChange}
-            disabled={loading}
-          />
+        
+        <h3 className="section-title">Account Details</h3>
+        <div className="form-grid">
+          <div className="form-row">
+            <label>PF Account No:</label>
+            <input
+              type="text"
+              name="pf_account_no"
+              value={formData.pf_account_no}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <label>ESI No:</label>
+            <input
+              type="text"
+              name="esi_no"
+              value={formData.esi_no}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
-        <div className="form-row">
-          <label>Last Name:</label>
-          <input
-            type="text"
-            name="lastname"
-            value={formData.lastname}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          />
+       
+        <h3 className="section-title">Family Information</h3>
+        <div className="form-grid">
+          <div className="form-row">
+            <label>Father's Name:</label>
+            <input
+              type="text"
+              name="fathers_name"
+              value={formData.fathers_name}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Resident Phone:</label>
+            <input
+              type="text"
+              name="resident_ph_no"
+              value={formData.resident_ph_no}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Spouse Name:</label>
+            <input
+              type="text"
+              name="spouse_name"
+              value={formData.spouse_name}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <label>Spouse Phone:</label>
+            <input
+              type="text"
+              name="spouse_ph_no"
+              value={formData.spouse_ph_no}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
-        <div className="form-row">
-          <label>Department:</label>
-          <select
-            name="department_id"
-            value={formData.department_id}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          >
-            <option value="">Select Department</option>
-            {departments.map((dep) => (
-              <option key={dep.id} value={dep.id}>
-                {dep.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-row">
-          <label>Position:</label>
-          <select
-            name="position_id"
-            value={formData.position_id}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          >
-            <option value="">Select Position</option>
-            {positions.map((pos) => (
-              <option key={pos.id} value={pos.id}>
-                {pos.title}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-row">
-          <label>Salary:</label>
-          <input
-            type="number"
-            name="salary"
-            value={formData.salary}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          />
-        </div>
-
+       
         <div className="button-row">
           <button type="submit" className="submit-btn" disabled={loading}>
-            {loading ? (
-              <span className="spinner"></span>
-            ) : (
-              "➕ Add Employee"
-            )}
+            {loading ? <span className="spinner"></span> : "➕ Add Employee"}
           </button>
-
           <button
             type="button"
             className="cancel-btn"
             onClick={() => (window.location.href = "/employees")}
-            disabled={loading}
           >
             ⬅ Back to List
           </button>
