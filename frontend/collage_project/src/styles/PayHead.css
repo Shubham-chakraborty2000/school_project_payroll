@@ -1,0 +1,209 @@
+.payhead-page {
+  padding: 22px;
+  font-family: "Poppins", sans-serif;
+}
+
+.payhead-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.payhead-header h2 {
+  margin: 0;
+  color: #004e6b;
+  font-size: 22px;
+}
+
+.payhead-header .subtitle {
+  margin: 2px 0 0 0;
+  color: #556;
+  font-size: 13px;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.search-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #cfcfcf;
+  min-width: 220px;
+  outline: none;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.payhead-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.payhead-table th {
+  text-align: left;
+  padding: 10px 12px;
+  background: #0077b6;
+  color: #fff;
+  font-weight: 600;
+}
+
+.payhead-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.payhead-table tbody tr:hover {
+  background-color: #f5fbff;
+}
+
+.badge {
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.badge.earning {
+  background: #2a9d8f;
+}
+
+.badge.deduction {
+  background: #ff6b6b;
+}
+
+.icon {
+  border: none;
+  background: transparent;
+  padding: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.icon.edit {
+  color: #0077b6;
+}
+
+.icon.del {
+  color: #d9534f;
+}
+
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  gap: 10px;
+}
+
+.pager-controls .btn {
+  margin-left: 6px;
+}
+
+
+.btn {
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn.primary {
+  background: #0077b6;
+  color: #fff;
+  border-color: #0077b6;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+
+.ph-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8,12,20,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+}
+
+.ph-modal-box {
+  width: 92%;
+  max-width: 720px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.ph-modal-box h3 {
+  color: #0077b6;
+  margin: 0 0 12px 0;
+}
+
+.ph-modal-box form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.ph-modal-box input, .ph-modal-box select {
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 6px;
+  box-sizing: border-box;
+}
+
+.ph-modal-box .row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.modal-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+
+@media (max-width: 720px) {
+  .ph-modal-box .row {
+    grid-template-columns: 1fr;
+  }
+  .payhead-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .controls { flex-wrap: wrap; }
+}

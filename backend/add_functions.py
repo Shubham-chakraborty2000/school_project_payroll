@@ -699,6 +699,162 @@ def get_basic_salary():
 
 
 
+@app.route('/payhead', methods=['POST'])
+def create_payhead():
+    try:
+        data = request.get_json()
+        name = (data.get('name') or "").strip()
+        ptype = data.get('type')
+        action = data.get('action')
+        percentage = data.get('percentage')
+        description = data.get('description')
+        status = data.get('status') or 'Active'
+
+        if not name:
+            return jsonify({"error": "Pay head name is required"}), 400
+        if ptype not in ('Earning','Deduction'):
+            return jsonify({"error": "Invalid type"}), 400
+        if action not in ('Fixed','Percentage','Formula'):
+            return jsonify({"error": "Invalid action"}), 400
+        if action == 'Percentage':
+            try:
+                percentage = float(percentage)
+            except:
+                return jsonify({"error": "Percentage must be a number for Percentage action"}), 400
+            if percentage < 0 or percentage > 100:
+                return jsonify({"error": "Percentage must be between 0 and 100"}), 400
+        else:
+            percentage = None
+
+        con = get_connection()
+        cursor = con.cursor()
+        cursor.execute("""
+            INSERT INTO PayHead (name, type, action, percentage, description, status)
+            VALUES (%s,%s,%s,%s,%s,%s)
+        """, (name, ptype, action, percentage, description, status))
+        con.commit()
+        new_id = cursor.lastrowid
+        return jsonify({"message": "Pay head created", "id": new_id}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+            cursor.close()
+            con.close()
+        
+
+
+
+
+
+@app.route('/payhead', methods=['GET'])
+def get_payheads():
+    try:
+        con = get_connection()
+        cursor = con.cursor(dictionary=True)
+        q = request.args.get('q', '').strip()
+        page = int(request.args.get('page', 1))
+        per_page = int(request.args.get('per_page', 20))
+        offset = (page - 1) * per_page
+
+        if q:
+            like = f"%{q}%"
+            cursor.execute("""
+                SELECT SQL_CALC_FOUND_ROWS id, name, type, action, percentage, description, status, date_created
+                FROM PayHead
+                WHERE name LIKE %s OR type LIKE %s OR action LIKE %s
+                ORDER BY date_created DESC
+                LIMIT %s OFFSET %s
+            """, (like, like, like, per_page, offset))
+        else:
+            cursor.execute("""
+                SELECT SQL_CALC_FOUND_ROWS id, name, type, action, percentage, description, status, date_created
+                FROM PayHead
+                ORDER BY date_created DESC
+                LIMIT %s OFFSET %s
+            """, (per_page, offset))
+
+        rows = cursor.fetchall()
+        cursor.execute("SELECT FOUND_ROWS() as total")
+        total = cursor.fetchone()['total']
+        return jsonify({"payheads": rows, "total": total, "page": page, "per_page": per_page})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        con.close()
+
+
+
+@app.route('/payhead/<int:ph_id>', methods=['PUT'])
+def update_payhead(ph_id):
+    try:
+        data = request.get_json()
+        name = (data.get('name') or "").strip()
+        ptype = data.get('type')
+        action = data.get('action')
+        percentage = data.get('percentage')
+        description = data.get('description')
+        status = data.get('status') or 'Active'
+
+        if not name:
+            return jsonify({"error": "Pay head name is required"}), 400
+        if ptype not in ('Earning','Deduction'):
+            return jsonify({"error": "Invalid type"}), 400
+        if action not in ('Fixed','Percentage','Formula'):
+            return jsonify({"error": "Invalid action"}), 400
+        if action == 'Percentage':
+            try:
+                percentage = float(percentage)
+            except:
+                return jsonify({"error": "Percentage must be a number for Percentage action"}), 400
+            if percentage < 0 or percentage > 100:
+                return jsonify({"error": "Percentage must be between 0 and 100"}), 400
+        else:
+            percentage = None
+
+        con = get_connection()
+        cursor = con.cursor()
+        cursor.execute("SELECT id FROM PayHead WHERE id = %s", (ph_id,))
+        if cursor.fetchone() is None:
+            return jsonify({"error": "Pay head not found"}), 404
+
+        cursor.execute("""
+            UPDATE PayHead
+            SET name=%s, type=%s, action=%s, percentage=%s, description=%s, status=%s
+            WHERE id=%s
+        """, (name, ptype, action, percentage, description, status, ph_id))
+        con.commit()
+        return jsonify({"message": "Pay head updated", "id": ph_id})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+       
+            cursor.close()
+            con.close()
+
+
+
+
+@app.route('/payhead/<int:ph_id>', methods=['DELETE'])
+def delete_payhead(ph_id):
+    try:
+        con = get_connection()
+        cursor = con.cursor()
+        cursor.execute("SELECT id FROM PayHead WHERE id = %s", (ph_id,))
+        if cursor.fetchone() is None:
+            return jsonify({"error": "Pay head not found"}), 404
+        cursor.execute("DELETE FROM PayHead WHERE id = %s", (ph_id,))
+        con.commit()
+        return jsonify({"message": "Pay head deleted", "id": ph_id})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+       
+            cursor.close()
+            con.close()
+      
+        
+
 if __name__ == "__main__":
     app.run(debug=True)
 

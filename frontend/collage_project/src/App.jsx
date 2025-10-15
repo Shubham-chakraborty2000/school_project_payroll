@@ -67,6 +67,7 @@ import AllDeduction from './components/AllDeduction';
 import ProvidentFund from './components/ProvidentFund';
 // import AllowanceTypes from './components/AllowanceTypes';
 import Allowances from './components/Allowances';
+import PayHead from './components/PayHead';
 import "./App.css";
 
 function App() {
@@ -108,6 +109,7 @@ function App() {
               
               {/* <Route path="/allowances/types" element={<AllowanceTypes />} /> */}
               <Route path="/allowances" element={<Allowances />} />
+              <Route path="/master/payhead" element={< PayHead/>} />
 
              
               <Route path="*" element={<Navigate to="/employees" />} />

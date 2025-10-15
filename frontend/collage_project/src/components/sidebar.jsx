@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaChartArea } from "react-icons/fa";
+import { FaChartArea, FaDatabase } from "react-icons/fa";
 import "../styles/Sidebar.css";
 
 function Sidebar() {
@@ -11,7 +10,6 @@ function Sidebar() {
   const toggleMenu = (menuName) => {
     setOpenMenu(openMenu === menuName ? null : menuName);
   };
-
 
   const isActive = (path) => location.pathname === path;
 
@@ -23,13 +21,9 @@ function Sidebar() {
           <h2 className="system-title">PAYROLL MANAGEMENT SYSTEM</h2>
         </div>
       </div>
-      {/* <div className="sidebar-header">
-        <img src="/pms_logo.png" alt="PMS Logo" className="logo" />
-        <h2 className="title">Payroll Management System</h2>
-      </div> */}
 
       <ul className="menu">
-
+   
         <li>
           <Link
             to="/"
@@ -41,7 +35,7 @@ function Sidebar() {
           </Link>
         </li>
 
-
+     
         <li>
           <button
             className="menu-button"
@@ -104,27 +98,11 @@ function Sidebar() {
                   Attendance Summary
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  to="/attendance/leaves"
-                  className={isActive("/attendance/leaves") ? "active-link" : ""}
-                >
-                  Leave Records
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link
-                  to="/attendance/report"
-                  className={isActive("/attendance/report") ? "active-link" : ""}
-                >
-                  Attendance Report
-                </Link>
-              </li> */}
             </ul>
           )}
         </li>
 
-
+     
         <li>
           <button
             className="menu-button"
@@ -153,21 +131,11 @@ function Sidebar() {
                   Bonus
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  to="/grosspay/calculation"
-                  className={
-                    isActive("/grosspay/calculation") ? "active-link" : ""
-                  }
-                >
-                  Gross Pay Calculations
-                </Link>
-              </li> */}
             </ul>
           )}
         </li>
 
-
+    
         <li>
           <button
             className="menu-button"
@@ -200,7 +168,7 @@ function Sidebar() {
           )}
         </li>
 
-
+      
         <li>
           <button
             className="menu-button"
@@ -221,14 +189,34 @@ function Sidebar() {
                   Allowance Types
                 </Link>
               </li>
-              {/* <li>
+            </ul>
+          )}
+        </li>
+
+  
+        <li>
+          <button
+            className="menu-button"
+            onClick={() => toggleMenu("master")}
+          >
+            <FaDatabase className="menu-icon" />
+
+            Master Data
+            
+            <span className="arrow">
+              {openMenu === "master" ? "▲" : "▼"}
+            </span>
+          </button>
+          {openMenu === "master" && (
+            <ul className="submenu">
+              <li>
                 <Link
-                  to="/allowances"
-                  className={isActive("/allowances") ? "active-link" : ""}
+                  to="/master/payhead"
+                  className={isActive("/master/payhead") ? "active-link" : ""}
                 >
-                  Allowances
+                  Pay Head
                 </Link>
-              </li> */}
+              </li>
             </ul>
           )}
         </li>
