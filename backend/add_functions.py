@@ -7,49 +7,27 @@ app=Flask(__name__)
 api=Api(app)
 CORS(app) 
 
-
 @app.route('/employeeinformation', methods=['GET'])
 def get_employee_information():
     try:
         con = get_connection()
         cursor = con.cursor(dictionary=True)
-
         query = """
             SELECT 
-                id,
-                employee_no,
-                firstname,
-                middlename,
-                lastname,
-                department_id,
-                position_id,
-                salary,
-                joining_date,
-                pan_no,
-                aadhar_no,
-                mobile_no,
-                email,
-                pf_account_no,
-                esi_no,
-                fathers_name,
-                resident_ph_no,
-                spouse_name,
-                spouse_ph_no
+                id, employee_no, firstname, middlename, lastname, department_id, position_id, salary,
+                joining_date, retirement_date, date_of_birth, pan_no, aadhar_no, mobile_no, email,
+                pf_account_no, bank_account_no, ifsc_code, esi_no, fathers_name, father_ph_no,
+                spouse_name, spouse_ph_no
             FROM EmployeeInformation
         """
         cursor.execute(query)
         results = cursor.fetchall()
-
-        response = {"employees": results}
-
+        return jsonify({"employees": results})
     except Exception as e:
-        response = {"error": str(e)}
-
+        return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
         con.close()
-
-    return jsonify(response)
 
 
 
@@ -70,47 +48,48 @@ def add_employee_information():
         position_id = data['position_id']
         salary = data['salary']
         joining_date = data.get('joining_date')
+        retirement_date = data.get('retirement_date')
+        date_of_birth = data.get('date_of_birth')
         pan_no = data.get('pan_no')
         aadhar_no = data.get('aadhar_no')
         mobile_no = data.get('mobile_no')
         email = data.get('email')
         pf_account_no = data.get('pf_account_no')
+        bank_account_no = data.get('bank_account_no')
+        ifsc_code = data.get('ifsc_code')
         esi_no = data.get('esi_no')
         fathers_name = data.get('fathers_name')
-        resident_ph_no = data.get('resident_ph_no')
+        father_ph_no = data.get('father_ph_no')
         spouse_name = data.get('spouse_name')
         spouse_ph_no = data.get('spouse_ph_no')
 
         con = get_connection()
         cursor = con.cursor()
+
         query = """
         INSERT INTO EmployeeInformation 
             (employee_no, firstname, middlename, lastname, department_id, position_id, salary,
-             joining_date, pan_no, aadhar_no, mobile_no, email, pf_account_no, esi_no,
-             fathers_name, resident_ph_no, spouse_name, spouse_ph_no)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+             joining_date, retirement_date, date_of_birth, pan_no, aadhar_no, mobile_no, email,
+             pf_account_no, bank_account_no, ifsc_code, esi_no, fathers_name, father_ph_no, spouse_name, spouse_ph_no)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        values = (employee_no, firstname, middlename, lastname, department_id, position_id, salary,
-                  joining_date, pan_no, aadhar_no, mobile_no, email, pf_account_no, esi_no,
-                  fathers_name, resident_ph_no, spouse_name, spouse_ph_no)
+        values = (
+            employee_no, firstname, middlename, lastname, department_id, position_id, salary,
+            joining_date, retirement_date, date_of_birth, pan_no, aadhar_no, mobile_no, email,
+            pf_account_no, bank_account_no, ifsc_code, esi_no, fathers_name, father_ph_no,
+            spouse_name, spouse_ph_no
+        )
 
         cursor.execute(query, values)
         con.commit()
-        emp_id = cursor.lastrowid
 
-        response = {"message": f"Employee {firstname} {lastname} added successfully with id {emp_id}"}
+        return jsonify({"message": f"Employee {firstname} {lastname} added successfully!"}), 201
 
     except Exception as e:
-        response = {"error": str(e)}
+        return jsonify({"error": str(e)}), 500
     finally:
-        if cursor:
-            cursor.close()
-        if con:
-            con.close()
-    return jsonify(response)
-
-
-
+        if cursor: cursor.close()
+        if con: con.close()
 
 
 

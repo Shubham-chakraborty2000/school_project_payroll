@@ -185,18 +185,13 @@ function EmployeeDetails() {
   const [currentPage, setCurrentPage] = useState(1);
   const [editEmployee, setEditEmployee] = useState(null);
   const itemsPerPage = 8;
-
   const BASE_URL = "http://localhost:5000";
 
   const fetchEmployees = () => {
     axios
       .get(`${BASE_URL}/employeeinformation`)
-      .then((response) => {
-        setEmployees(response.data.employees || []);
-      })
-      .catch((error) => {
-        console.error("Error fetching employees:", error);
-      });
+      .then((response) => setEmployees(response.data.employees || []))
+      .catch((error) => console.error("Error fetching employees:", error));
   };
 
   useEffect(() => {
@@ -234,7 +229,6 @@ function EmployeeDetails() {
 
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
-
     axios
       .put(`${BASE_URL}/EmployeeInformation/${editEmployee.id}`, editEmployee)
       .then(() => {
@@ -247,19 +241,20 @@ function EmployeeDetails() {
 
   return (
     <div className="employee-details">
-      <h2>Employee Details</h2>
-
-      <div className="toolbar">
-        <button
-          className="add-new-button"
-          onClick={() => (window.location.href = "/employees/add")}
-        >
-          + Add New
-        </button>
-        <SearchBar
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+      <div className="header-bar">
+        <h2>Employee Directory</h2>
+        <div className="toolbar">
+          <button
+            className="add-new-button"
+            onClick={() => (window.location.href = "/employees/add")}
+          >
+            + Add New
+          </button>
+          <SearchBar
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="table-wrapper">
@@ -269,59 +264,73 @@ function EmployeeDetails() {
               <th>Emp No</th>
               <th>First</th>
               <th>Last</th>
-              <th>Department</th>
+              <th>Dept</th>
               <th>Position</th>
               <th>Salary</th>
-              <th>Joining Date</th>
+              <th>Joining</th>
+              <th>Retirement</th>
+              <th>DOB</th>
               <th>PAN</th>
               <th>Aadhar</th>
               <th>Mobile</th>
               <th>Email</th>
-              <th>PF No</th>
-              <th>ESI No</th>
+              <th>Bank Acc</th>
+              <th>IFSC</th>
+              <th>PF</th>
+              <th>ESI</th>
               <th>Father</th>
-              <th>Resident Ph</th>
+              <th>Father Ph</th>
               <th>Spouse</th>
               <th>Spouse Ph</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedEmployees.map((emp) => (
-              <tr key={emp.id}>
-                <td>{emp.employee_no}</td>
-                <td>{emp.firstname}</td>
-                <td>{emp.lastname}</td>
-                <td>{emp.department_id}</td>
-                <td>{emp.position_id}</td>
-                <td>₹{emp.salary}</td>
-                <td>{emp.joining_date || "-"}</td>
-                <td>{emp.pan_no || "-"}</td>
-                <td>{emp.aadhar_no || "-"}</td>
-                <td>{emp.mobile_no || "-"}</td>
-                <td>{emp.email || "-"}</td>
-                <td>{emp.pf_account_no || "-"}</td>
-                <td>{emp.esi_no || "-"}</td>
-                <td>{emp.fathers_name || "-"}</td>
-                <td>{emp.resident_ph_no || "-"}</td>
-                <td>{emp.spouse_name || "-"}</td>
-                <td>{emp.spouse_ph_no || "-"}</td>
-                <td>
-                  <button
-                    className="action-button edit"
-                    onClick={() => handleEditClick(emp)}
-                  >
-                    ✏
-                  </button>
-                  <button
-                    className="action-button delete"
-                    onClick={() => handleDelete(emp.id)}
-                  >
-                    🗑
-                  </button>
-                </td>
+            {paginatedEmployees.length === 0 ? (
+              <tr>
+                <td colSpan="21" className="no-data">No employees found</td>
               </tr>
-            ))}
+            ) : (
+              paginatedEmployees.map((emp) => (
+                <tr key={emp.id}>
+                  <td>{emp.employee_no}</td>
+                  <td>{emp.firstname}</td>
+                  <td>{emp.lastname}</td>
+                  <td>{emp.department_id}</td>
+                  <td>{emp.position_id}</td>
+                  <td>₹{emp.salary}</td>
+                  <td>{emp.joining_date || "-"}</td>
+                  <td>{emp.retirement_date || "-"}</td>
+                  <td>{emp.date_of_birth || "-"}</td>
+                  <td>{emp.pan_no || "-"}</td>
+                  <td>{emp.aadhar_no || "-"}</td>
+                  <td>{emp.mobile_no || "-"}</td>
+                  <td>{emp.email || "-"}</td>
+                  <td>{emp.bank_account_no || "-"}</td>
+                  <td>{emp.ifsc_code || "-"}</td>
+                  <td>{emp.pf_account_no || "-"}</td>
+                  <td>{emp.esi_no || "-"}</td>
+                  <td>{emp.fathers_name || "-"}</td>
+                  <td>{emp.father_ph_no || "-"}</td>
+                  <td>{emp.spouse_name || "-"}</td>
+                  <td>{emp.spouse_ph_no || "-"}</td>
+                  <td>
+                    <button
+                      className="action-button edit"
+                      onClick={() => handleEditClick(emp)}
+                    >
+                      ✏
+                    </button>
+                    <button
+                      className="action-button delete"
+                      onClick={() => handleDelete(emp.id)}
+                    >
+                      🗑
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
@@ -332,30 +341,29 @@ function EmployeeDetails() {
         onPageChange={setCurrentPage}
       />
 
-     
       {editEmployee && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Edit Employee</h3>
+            <h3>Edit Employee Information</h3>
             <form onSubmit={handleUpdateSubmit}>
-              {Object.keys(editEmployee).map((key) => (
-                key !== "id" && (
-                  <label key={key}>
-                    {key.replaceAll("_", " ").toUpperCase()}:
-                    <input
-                      type="text"
-                      value={editEmployee[key] || ""}
-                      onChange={(e) =>
-                        setEditEmployee({
-                          ...editEmployee,
-                          [key]: e.target.value,
-                        })
-                      }
-                    />
-                  </label>
-                )
-              ))}
-
+              {Object.keys(editEmployee).map(
+                (key) =>
+                  key !== "id" && (
+                    <label key={key}>
+                      {key.replaceAll("_", " ").toUpperCase()}:
+                      <input
+                        type="text"
+                        value={editEmployee[key] || ""}
+                        onChange={(e) =>
+                          setEditEmployee({
+                            ...editEmployee,
+                            [key]: e.target.value,
+                          })
+                        }
+                      />
+                    </label>
+                  )
+              )}
               <div className="modal-actions">
                 <button type="submit" className="save-btn">
                   Save Changes
