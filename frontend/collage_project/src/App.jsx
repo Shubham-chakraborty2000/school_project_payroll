@@ -48,8 +48,6 @@
 //   );
 // }
 
-
-
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/sidebar';
@@ -58,23 +56,18 @@ import EmployeeDetails from './components/EmployeeDetails';
 import AddEmployee from './components/AddEmployee';
 import DailyAttendance from './components/DailyAttendance';
 import AttendanceSummary from './components/AttendanceSummary';
-// import LeaveRecords from './components/LeaveRecords';
-// import AttendanceReport from './components/AttendanceSummary';
 import BasicSalary from './components/BasicSalary';
 import Bonus from './components/Bonus';
-// import GrossPayCalculation from './components/GrossPayCalculation';
 import AllDeduction from './components/AllDeduction';
 import ProvidentFund from './components/ProvidentFund';
-// import AllowanceTypes from './components/AllowanceTypes';
 import Allowances from './components/Allowances';
 import PayHead from './components/PayHead';
+import Dashboard from './components/Dashboard';
 import "./App.css";
 
 function App() {
-
-  const [user, setUser] = useState('Shubham'); 
+  const [user, setUser] = useState('Shubham');
   const handleLogout = () => {
-    
     setUser('');
   };
 
@@ -86,39 +79,25 @@ function App() {
           <Topbar user={user} onLogout={handleLogout} />
           <div className="page-content">
             <Routes>
-             
-              <Route path="/" element={<Navigate to="/employees" />} />
+              <Route path="/" element={<Navigate to="/dashboard" />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employees" element={<EmployeeDetails />} />
               <Route path="/employees/add" element={<AddEmployee />} />
-
-            
               <Route path="/attendance/daily" element={<DailyAttendance />} />
               <Route path="/attendance/summary" element={<AttendanceSummary />} />
-              {/* <Route path="/attendance/leaves" element={<LeaveRecords />} /> */}
-              {/* <Route path="/attendance/report" element={<AttendanceReport />} /> */}
-
-            
               <Route path="/grosspay/basic" element={<BasicSalary />} />
               <Route path="/grosspay/bonus" element={<Bonus />} />
-              {/* <Route path="/grosspay/calculation" element={<GrossPayCalculation />} /> */}
-
-             
               <Route path="/deduction/tax" element={<AllDeduction />} />
               <Route path="/deduction/pf" element={<ProvidentFund />} />
-
-              
-              {/* <Route path="/allowances/types" element={<AllowanceTypes />} /> */}
               <Route path="/allowances" element={<Allowances />} />
-              <Route path="/master/payhead" element={< PayHead/>} />
-
-             
-              <Route path="*" element={<Navigate to="/employees" />} />
+              <Route path="/master/payhead" element={<PayHead />} />
+              <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>
           </div>
         </div>
       </div>
     </Router>
-  );               
+  );
 }
 
 export default App;

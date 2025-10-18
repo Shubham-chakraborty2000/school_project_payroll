@@ -23,11 +23,10 @@ function Sidebar() {
       </div>
 
       <ul className="menu">
-   
         <li>
           <Link
-            to="/"
-            className={`dashboard-link ${isActive("/") ? "active-link" : ""}`}
+            to="/dashboard"
+            className={`dashboard-link ${isActive("/dashboard") ? "active-link" : ""}`}
             onClick={() => setOpenMenu(null)}
           >
             <FaChartArea className="dashboard-icon" />
@@ -35,16 +34,10 @@ function Sidebar() {
           </Link>
         </li>
 
-     
         <li>
-          <button
-            className="menu-button"
-            onClick={() => toggleMenu("employee")}
-          >
+          <button className="menu-button" onClick={() => toggleMenu("employee")}>
             Employee Information
-            <span className="arrow">
-              {openMenu === "employee" ? "▲" : "▼"}
-            </span>
+            <span className="arrow">{openMenu === "employee" ? "▲" : "▼"}</span>
           </button>
           {openMenu === "employee" && (
             <ul className="submenu">
@@ -69,14 +62,9 @@ function Sidebar() {
         </li>
 
         <li>
-          <button
-            className="menu-button"
-            onClick={() => toggleMenu("attendance")}
-          >
+          <button className="menu-button" onClick={() => toggleMenu("attendance")}>
             Attendance Records
-            <span className="arrow">
-              {openMenu === "attendance" ? "▲" : "▼"}
-            </span>
+            <span className="arrow">{openMenu === "attendance" ? "▲" : "▼"}</span>
           </button>
           {openMenu === "attendance" && (
             <ul className="submenu">
@@ -91,9 +79,7 @@ function Sidebar() {
               <li>
                 <Link
                   to="/attendance/summary"
-                  className={
-                    isActive("/attendance/summary") ? "active-link" : ""
-                  }
+                  className={isActive("/attendance/summary") ? "active-link" : ""}
                 >
                   Attendance Summary
                 </Link>
@@ -102,16 +88,10 @@ function Sidebar() {
           )}
         </li>
 
-     
         <li>
-          <button
-            className="menu-button"
-            onClick={() => toggleMenu("grosspay")}
-          >
+          <button className="menu-button" onClick={() => toggleMenu("grosspay")}>
             Gross Pay
-            <span className="arrow">
-              {openMenu === "grosspay" ? "▲" : "▼"}
-            </span>
+            <span className="arrow">{openMenu === "grosspay" ? "▲" : "▼"}</span>
           </button>
           {openMenu === "grosspay" && (
             <ul className="submenu">
@@ -135,16 +115,10 @@ function Sidebar() {
           )}
         </li>
 
-    
         <li>
-          <button
-            className="menu-button"
-            onClick={() => toggleMenu("deduction")}
-          >
+          <button className="menu-button" onClick={() => toggleMenu("deduction")}>
             Deduction
-            <span className="arrow">
-              {openMenu === "deduction" ? "▲" : "▼"}
-            </span>
+            <span className="arrow">{openMenu === "deduction" ? "▲" : "▼"}</span>
           </button>
           {openMenu === "deduction" && (
             <ul className="submenu">
@@ -168,16 +142,10 @@ function Sidebar() {
           )}
         </li>
 
-      
         <li>
-          <button
-            className="menu-button"
-            onClick={() => toggleMenu("allowances")}
-          >
+          <button className="menu-button" onClick={() => toggleMenu("allowances")}>
             Allowances
-            <span className="arrow">
-              {openMenu === "allowances" ? "▲" : "▼"}
-            </span>
+            <span className="arrow">{openMenu === "allowances" ? "▲" : "▼"}</span>
           </button>
           {openMenu === "allowances" && (
             <ul className="submenu">
@@ -193,19 +161,11 @@ function Sidebar() {
           )}
         </li>
 
-  
         <li>
-          <button
-            className="menu-button"
-            onClick={() => toggleMenu("master")}
-          >
+          <button className="menu-button" onClick={() => toggleMenu("master")}>
             <FaDatabase className="menu-icon" />
-
             Master Data
-            
-            <span className="arrow">
-              {openMenu === "master" ? "▲" : "▼"}
-            </span>
+            <span className="arrow">{openMenu === "master" ? "▲" : "▼"}</span>
           </button>
           {openMenu === "master" && (
             <ul className="submenu">

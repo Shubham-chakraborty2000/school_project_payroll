@@ -831,7 +831,130 @@ def delete_payhead(ph_id):
        
             cursor.close()
             con.close()
+
+
+
+@app.route('/api/dashboard/birthdays', methods=['GET'])
+def get_birthdays():
+    """Fetch employee birthdays automatically"""
+    try:
+        con = get_connection()
+        cursor = con.cursor(dictionary=True)
+        cursor.execute("""
+            SELECT 
+                id, employee_no,
+                CONCAT(firstname, ' ', IFNULL(middlename,''), ' ', lastname) AS name,
+                date_of_birth
+            FROM EmployeeInformation
+            WHERE date_of_birth IS NOT NULL
+            ORDER BY MONTH(date_of_birth), DAY(date_of_birth)
+        """)
+        data = cursor.fetchall()
+
+        for row in data:
+            if row["date_of_birth"]:
+                row["date_of_birth"] = str(row["date_of_birth"])
+
+        return jsonify({"birthdays": data}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if cursor: cursor.close()
+        if con: con.close()
       
+
+
+@app.route('/api/dashboard/events', methods=['GET'])
+def get_events():
+    """Fetch all calendar events"""
+    try:
+        con = get_connection()
+        cursor = con.cursor(dictionary=True)
+
+        from_date = request.args.get("from")
+        to_date = request.args.get("to")
+
+        query = "SELECT id, title, description, event_date FROM CalendarEvent"
+        params = []
+
+        if from_date and to_date:
+            query += " WHERE event_date BETWEEN %s AND %s"
+            params = [from_date, to_date]
+        elif from_date:
+            query += " WHERE event_date >= %s"
+            params = [from_date]
+        elif to_date:
+            query += " WHERE event_date <= %s"
+            params = [to_date]
+
+        query += " ORDER BY event_date ASC"
+        cursor.execute(query, params)
+        events = cursor.fetchall()
+
+        for ev in events:
+            ev["event_date"] = str(ev["event_date"])
+
+        return jsonify({"events": events}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if cursor: cursor.close()
+        if con: con.close()
+
+
+
+@app.route('/api/dashboard/events', methods=['POST'])
+def add_event():
+    """Add a new event (use Postman to hit this route)"""
+    try:
+        data = request.get_json()
+        title = data.get("title")
+        description = data.get("description")
+        event_date = data.get("event_date")
+
+        if not title or not event_date:
+            return jsonify({"error": "title and event_date are required"}), 400
+
+        con = get_connection()
+        cursor = con.cursor()
+        query = "INSERT INTO CalendarEvent (title, description, event_date) VALUES (%s, %s, %s)"
+        cursor.execute(query, (title, description, event_date))
+        con.commit()
+
+        return jsonify({
+            "message": "Event added successfully!",
+            "event": {
+                "id": cursor.lastrowid,
+                "title": title,
+                "description": description,
+                "event_date": event_date
+            }
+        }), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if cursor: cursor.close()
+        if con: con.close()
+
+
+@app.route('/api/dashboard/events/<int:event_id>', methods=['DELETE'])
+def delete_event(event_id):
+    """Delete an event (optional endpoint for testing)"""
+    try:
+        con = get_connection()
+        cursor = con.cursor()
+        cursor.execute("DELETE FROM CalendarEvent WHERE id = %s", (event_id,))
+        con.commit()
+
+        if cursor.rowcount == 0:
+            return jsonify({"error": f"No event found with id {event_id}"}), 404
+
+        return jsonify({"message": f"Event {event_id} deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if cursor: cursor.close()
+        if con: con.close()
         
 
 if __name__ == "__main__":
